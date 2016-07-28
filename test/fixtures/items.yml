@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  quantity: 1
+  milk: MyString
+  size: MyString
+
+two:
+  name: MyString
+  quantity: 1
+  milk: MyString
+  size: MyString
