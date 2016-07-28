@@ -10,13 +10,13 @@ class OrdersController < ApplicationController
 
   # GET /orders/1
   def show
-    #render json: @order
     @order = Order.joins(:items)
     render json: @order
   end
 
   # POST /orders
   def create
+    Rails.logger.debug("debug::" + order_params.inspect)
     @order = Order.new(order_params)
 
     if @order.save
@@ -48,6 +48,8 @@ class OrdersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def order_params
-      params.require(:order).permit(:location, :status)
+      params.require(:order).permit(:id, :location, :status, items_attributes:  [ :id, :name, :quantity, :milk, :size, :_destroy])
     end
+
+
 end
