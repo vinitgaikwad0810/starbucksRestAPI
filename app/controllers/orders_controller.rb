@@ -10,7 +10,9 @@ class OrdersController < ApplicationController
 
   # GET /orders/1
   def show
-    @order = Order.joins(:items)
+    Rails.logger.debug("debug::" + params["id"])
+    
+    @order = Order.joins(:items).where('items.order_id' => params["id"]).distinct
     render json: @order
   end
 
@@ -28,11 +30,26 @@ class OrdersController < ApplicationController
 
   # PATCH/PUT /orders/1
   def update
-    if @order.update(order_params)
+    #@order.update(order_params)
+    # order = Order.joins(:items).where('items.order_id' => params["id"]).distinct
+    # order.update(params["id"],order_params)
+    # Rails.logger.debug("debug::" + order.inspect)
+    # @order = Order.joins(:items).where('items.order_id' => params["id"]).distinct
+
+    # if @order.update(order_params)
+    #   render json: @order
+    # else
+    #   render json: @order.errors, status: :unprocessable_entity
+      # end
+    @order = Order.find(params[:id])
+    Rails.logger.debug("debug::" + @order.inspect)
+    @order.update_attributes(order_params)
+    if @order.save
       render json: @order
     else
       render json: @order.errors, status: :unprocessable_entity
     end
+    #render json: @order
   end
 
   # DELETE /orders/1
@@ -48,7 +65,7 @@ class OrdersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def order_params
-      params.require(:order).permit(:id, :location, :status, items_attributes:  [ :id, :name, :quantity, :milk, :size, :_destroy])
+      params.require(:order).permit( :location, :status, items_attributes:  [ :id, :name, :quantity, :milk, :size, :order_id,:_destroy])
     end
 
 
