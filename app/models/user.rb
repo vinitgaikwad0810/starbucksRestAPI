@@ -1,4 +1,18 @@
 class User < ApplicationRecord
-  has_many :sent_messages, class_name: "Message", foreign_key: "sender_id"
-  has_many :received_messages, class_name: "Message", foreign_key: "recipient_id"
+
+
+validates :name,:email, :presence => true 
+
+	 # Assign an API key on create
+  before_create do |user|
+    user.api_key = user.generate_api_key
+  end
+
+  # Generate a unique API key
+  def generate_api_key
+    loop do
+      token = SecureRandom.base64.tr('+/=', 'Qrt')
+      break token unless User.exists?(api_key: token)
+    end
+  end
 end

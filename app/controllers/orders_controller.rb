@@ -1,6 +1,21 @@
 class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :update, :destroy]
 
+  before_action :authenticate
+
+  
+
+swagger_controller :order, "Order"
+
+  # swagger_api :index do
+  #   summary "Fetches all Book items"
+  #   notes "This lists all books"
+  #   param :query, :page, :integer, :optional, "Page number"
+  #   response :ok, "Success", :Order
+  #   response :unauthorized
+  #   response :not_acceptable, "The request you made is not acceptable"
+  #   response :requested_range_not_satisfiable
+  # end
   # GET /orders
   def index
     @orders = Order.all
@@ -8,6 +23,15 @@ class OrdersController < ApplicationController
     render json: @orders
   end
 
+
+swagger_api :show do
+    summary "Fetches a single User item"
+    param :path, :id, :integer, :optional, "User Id"
+    response :ok, "Success", :Order
+    response :unauthorized
+    response :not_acceptable
+    response :not_found
+  end
   # GET /orders/1
   def show
     Rails.logger.debug("debug::" + params["id"])
@@ -16,6 +40,15 @@ class OrdersController < ApplicationController
     render json: @order
   end
 
+# swagger_api :create do
+#     summary "Creates a new Book"
+#     param :form, :title, :string, :required, "Title"
+#     param :form, :description, :string, :required, "Description"
+#     param :form, :page_count, :integer, :required, "Page count"
+#     response :created, "Success", :Book
+#     response :unauthorized
+#     response :not_acceptable
+#   end
   # POST /orders
   def create
     Rails.logger.debug("debug::" + order_params.inspect)
@@ -28,6 +61,16 @@ class OrdersController < ApplicationController
     end
   end
 
+# swagger_api :update do
+#     summary "Creates a new Book"
+#     param :path, :id, :integer, :required, "Book Id"
+#     param :form, :title, :string, :required, "Title"
+#     param :form, :description, :string, :required, "Description"
+#     param :form, :page_count, :integer, :required, "Page count"
+#     response :created, "Success", :Book
+#     response :unauthorized
+#     response :not_acceptable
+#   end
   # PATCH/PUT /orders/1
   def update
     #@order.update(order_params)
@@ -52,6 +95,12 @@ class OrdersController < ApplicationController
     #render json: @order
   end
 
+# swagger_api :destroy do
+#     summary "Deletes an existing Book item"
+#     param :path, :id, :integer, :optional, "Book Id"
+#     response :unauthorized
+#     response :not_found
+#   end
   # DELETE /orders/1
   def destroy
     @order.destroy

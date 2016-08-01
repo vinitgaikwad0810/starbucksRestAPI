@@ -37,3 +37,21 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'active_model_serializers', '~> 0.10.0'
+
+
+group :development, :test do
+  gem 'rspec-rails'
+  gem 'factory_girl_rails' , :require => false
+  gem 'swagger-docs'
+  gem 'rails-controller-testing'
+end	
+
+
+
+
+group :test do
+  gem 'faker'
+  gem 'capybara'
+  gem 'guard-rspec'
+  gem 'launchy'
+end

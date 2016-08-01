@@ -1,0 +1,120 @@
+POST http://localhost:3000/orders
+
+Request
+
+{
+  "order":{
+    
+    "location": "takeAway",
+    "status": "preparing",
+    "items_attributes": [
+      {
+         
+        "name": "coffee",
+        "quantity": 1,
+        "milk": "whole",
+        "size": "small"
+      }
+    ]
+  }
+}
+
+
+Response
+
+{
+    
+    "order":{
+  
+  "location": "TakeAway",
+  "status": "prepared",
+  "items_attributes": [
+    {
+      "id":49,
+      "name": "latte",
+      "quantity": 1,
+      "milk": "whole",
+      "size": "large",
+      "created_at": "2016-07-31T23:13:28.992Z",
+      "updated_at": "2016-07-31T23:13:28.992Z",
+      "order_id": 83
+    }
+  ]
+}
+}
+
+PUT http://localhost:3000/orders/83
+
+
+Request
+
+
+
+{
+    
+    "order":{
+  
+  "location": "TakeAway",
+  "status": "prepared",
+  "items_attributes": [
+    {
+      "id":49,
+      "name": "latte",
+      "quantity": 1,
+      "milk": "whole",
+      "size": "large",
+      "created_at": "2016-07-31T23:13:28.992Z",
+      "updated_at": "2016-07-31T23:13:28.992Z",
+      "order_id": 83
+    }
+  ]
+}
+}
+
+
+Response
+
+
+{
+  "id": 83,
+  "location": "TakeAway",
+  "status": "prepared",
+  "items": [
+    {
+      "id": 49,
+      "name": "latte",
+      "quantity": 1,
+      "milk": "whole",
+      "size": "large",
+      "created_at": "2016-07-31T23:13:28.992Z",
+      "updated_at": "2016-07-31T23:35:28.114Z",
+      "order_id": 83
+    }
+  ]
+}
+
+
+GET http://localhost:3000/orders/83
+[
+  {
+    "id": 83,
+    "location": "TakeAway",
+    "status": "prepared",
+    "items": [
+      {
+        "id": 49,
+        "name": "latte",
+        "quantity": 1,
+        "milk": "whole",
+        "size": "large",
+        "created_at": "2016-07-31T23:13:28.992Z",
+        "updated_at": "2016-07-31T23:35:28.114Z",
+        "order_id": 83
+      }
+    ]
+  }
+]
+
+
+
+DELETE http://localhost:3000/orders/84
