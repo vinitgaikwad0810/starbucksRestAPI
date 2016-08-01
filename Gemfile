@@ -47,7 +47,7 @@ group :development, :test do
 end	
 
 
-
+gem 'rubocop', require: false
 
 group :test do
   gem 'faker'
